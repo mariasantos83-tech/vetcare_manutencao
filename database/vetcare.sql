@@ -1,6 +1,8 @@
 CREATE DATABASE IF NOT EXISTS vetcare_maria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE vetcare_;
+USE vetcare_maria;
 
+DROP TABLE IF EXISTS historico_chamados;
+DROP TABLE IF EXISTS chamados;
 DROP TABLE IF EXISTS consultas;
 DROP TABLE IF EXISTS animais;
 DROP TABLE IF EXISTS tutores;
@@ -14,8 +16,16 @@ CREATE TABLE usuarios (
   perfil VARCHAR(20) DEFAULT 'admin'
 );
 
+-- Primeiro insert (ganhará o ID 1 automaticamente)
 INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
 ('Administrador VetCare', 'admin', 'admin123', 'admin');
+
+-- Segundos inserts (ganharão os IDs 2, 3, 4 e 5 automaticamente)
+INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
+('Mariana Costa', 'mariana@email.com', '12345', 'usuario'),
+('Rafael Mendes', 'rafael@email.com', '12345', 'usuario'),
+('Camila Oliveira', 'camila@email.com', '12345', 'usuario'),
+('João Pedro Lima', 'joao@email.com', '1245', 'usuario');
 
 CREATE TABLE tutores (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +47,7 @@ CREATE TABLE animais (
   sexo VARCHAR(20),
   observacoes TEXT,
   ativo TINYINT(1) DEFAULT 1,
-  CONSTRAINT fk_animal_tutor FOREIGN KEY (tutor_id) REFERENCES tutores(id)
+  CONSTRAINT fk_animal_tutor FOREIGN KEY (tutor_id) REFERENCES tutores(id) ON DELETE CASCADE
 );
 
 CREATE TABLE consultas (
@@ -48,25 +58,19 @@ CREATE TABLE consultas (
   motivo VARCHAR(180),
   status VARCHAR(30) DEFAULT 'Agendada',
   observacoes TEXT,
-  CONSTRAINT fk_consulta_animal FOREIGN KEY (animal_id) REFERENCES animais(id)
+  CONSTRAINT fk_consulta_animal FOREIGN KEY (animal_id) REFERENCES animais(id) ON DELETE CASCADE
 );
-
-INSERT INTO usuario (id, nome, usuario, senha) VALUES
-(1, 'Mariana Costa', 'mariana@email.com', '12345'),
-(2, 'Rafael Mendes', 'rafael@email.com', '12345',),
-(3, 'Camila Oliveira', 'camila@email.com', '12345',),
-(4, 'João Pedro Lima', 'joao@email.com', '1245',);
 
 INSERT INTO tutores (nome, telefone, email, endereco, ativo) VALUES
 ('Mariana Costa', '(47) 99999-1001', 'mariana@email.com', 'Centro', 1),
 ('Rafael Mendes', '(47) 98888-2002', 'rafael@email.com', 'Bairro Cruzeiro', 1),
 ('Camila Oliveira', '(47) 97777-3003', 'camila@email.com', 'Serra Alta', 1),
-('João Pedro Lima', 'abc123', 'joao@email.com', '25 de Julho', 0);
+('João Pedro Lima', '(47) 96666-4004', 'joao@email.com', '25 de Julho', 0);
 
 INSERT INTO animais (tutor_id, nome, especie, raca, nascimento, sexo, observacoes, ativo) VALUES
 (1, 'Mel', 'Cão', 'Golden Retriever', '2021-05-10', 'Fêmea', 'Alergia alimentar', 1),
 (2, 'Mingau', 'Gato', 'SRD', '2023-11-20', 'Macho', 'Vacinação em dia', 1),
-(3, 'Thor', 'Cão', 'Labrador', '2025-10-30', 'Macho', '', 1),
+(3, 'Thor', 'Cão', 'Labrador', '2024-10-30', 'Macho', '', 1),
 (4, 'Pipoca', 'Coelho', 'Mini Lop', '2024-02-15', 'Fêmea', '', 0);
 
 INSERT INTO consultas (animal_id, data_consulta, veterinario, motivo, status, observacoes) VALUES
@@ -74,9 +78,6 @@ INSERT INTO consultas (animal_id, data_consulta, veterinario, motivo, status, ob
 (2, DATE_SUB(NOW(), INTERVAL 3 DAY), 'Dr. André', 'Avaliação de rotina', 'Realizada', ''),
 (3, DATE_ADD(NOW(), INTERVAL 5 DAY), 'Dra. Paula', 'Vacinação', 'Agendada', '');
 
-
-DROP TABLE IF EXISTS historico_chamados;
-DROP TABLE IF EXISTS chamados;
 
 CREATE TABLE chamados (
   id INT AUTO_INCREMENT PRIMARY KEY,
