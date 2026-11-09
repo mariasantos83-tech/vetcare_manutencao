@@ -16,11 +16,9 @@ CREATE TABLE usuarios (
   perfil VARCHAR(20) DEFAULT 'admin'
 );
 
--- Primeiro insert (ganhará o ID 1 automaticamente)
 INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
 ('Administrador VetCare', 'admin', 'admin123', 'admin');
 
--- Segundos inserts (ganharão os IDs 2, 3, 4 e 5 automaticamente)
 INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
 ('Mariana Costa', 'mariana@email.com', '12345', 'usuario'),
 ('Rafael Mendes', 'rafael@email.com', '12345', 'usuario'),
