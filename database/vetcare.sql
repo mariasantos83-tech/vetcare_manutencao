@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS vetcare_maria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE vetcare_maria;
+USE vetcare_;
 
 DROP TABLE IF EXISTS consultas;
 DROP TABLE IF EXISTS animais;
@@ -50,6 +50,12 @@ CREATE TABLE consultas (
   observacoes TEXT,
   CONSTRAINT fk_consulta_animal FOREIGN KEY (animal_id) REFERENCES animais(id)
 );
+
+INSERT INTO usuario (id, nome, usuario, senha) VALUES
+(1, 'Mariana Costa', 'mariana@email.com', '12345'),
+(2, 'Rafael Mendes', 'rafael@email.com', '12345',),
+(3, 'Camila Oliveira', 'camila@email.com', '12345',),
+(4, 'João Pedro Lima', 'joao@email.com', '1245',);
 
 INSERT INTO tutores (nome, telefone, email, endereco, ativo) VALUES
 ('Mariana Costa', '(47) 99999-1001', 'mariana@email.com', 'Centro', 1),
