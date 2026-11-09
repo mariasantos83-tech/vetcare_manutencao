@@ -25,6 +25,7 @@ INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
 ('Camila Oliveira', 'camila@email.com', '12345', 'usuario'),
 ('João Pedro Lima', 'joao@email.com', '1245', 'usuario');
 
+
 CREATE TABLE tutores (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(120) NOT NULL,
@@ -105,3 +106,4 @@ CREATE TABLE historico_chamados (
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_historico_chamado FOREIGN KEY (chamado_id) REFERENCES chamados(id) ON DELETE CASCADE
 );
+
