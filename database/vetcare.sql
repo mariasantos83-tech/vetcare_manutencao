@@ -26,6 +26,13 @@ INSERT INTO usuarios (nome, usuario, senha, perfil) VALUES
 ('João Pedro Lima', 'joao@email.com', '1245', 'usuario');
 
 
+-- Teste 1: Se o sistema usar MD5 (muito comum em projetos escolares/tutoriais)
+UPDATE usuarios SET senha = MD5('12345') WHERE usuario = 'mariana@email.com';
+
+-- Teste 2: Se o seu sistema usar SHA256
+UPDATE usuarios SET senha = SHA2('12345', 256) WHERE usuario = 'mariana@email.com';
+
+
 CREATE TABLE tutores (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(120) NOT NULL,
